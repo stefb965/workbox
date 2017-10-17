@@ -68,7 +68,9 @@ const globals = (moduleId) => {
         This is so we can reliably support browser and ES2015 modules.
       `);
     }
-    modulePieces.join('_private');
+
+    // Remove the extension from the file name.
+    modulePieces.join(path.basename(splitModuleId[0]));
   }
 
   return modulePieces.join('.');
