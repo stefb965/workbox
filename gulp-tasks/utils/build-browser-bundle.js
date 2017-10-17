@@ -36,7 +36,7 @@ const globals = (moduleId) => {
   }
 
   const packageName = splitModuleId.shift();
-  if (splitModuleId.length > 0) {
+  if (splitModuleId.length > 1) {
     throw new Error(oneLine`
     All imports of workbox-* modules must be done from the top level export.
     (i.e. import * from 'workbox-*') This ensures that the browser
@@ -45,18 +45,33 @@ const globals = (moduleId) => {
   `);
   }
 
+  const modulePieces = [constants.NAMESPACE_PREFIX];
+
   // Get a package's browserNamespace so we know where it will be
   // on the global scope (i.e. workbox.<name space>)
   const packagePath = path.join(__dirname, '..', '..', 'packages', packageName);
   try {
     const pkg = require(path.join(packagePath, 'package.json'));
-    return `${constants.NAMESPACE_PREFIX}.${pkg.workbox.browserNamespace}`;
+    modulePieces.push(pkg.workbox.browserNamespace);
   } catch (err) {
     logHelper.error(`Unable to get browserNamespace for package: ` +
       `'${packageName}'`);
     logHelper.error(err);
     throw err;
   }
+
+  if (splitModuleId.length === 1) {
+    if (splitModuleId[0] !== '_private.mjs') {
+      throw new Error(oneLine`
+        Workbox only allows importing from 'workbox-*/_private.mjs' for
+        extra files, otherwise, it should be exported on the top level module.
+        This is so we can reliably support browser and ES2015 modules.
+      `);
+    }
+    modulePieces.join('_private');
+  }
+
+  return modulePieces.join('.');
 };
 
 // This ensures all workbox-* modules are treated as external and are

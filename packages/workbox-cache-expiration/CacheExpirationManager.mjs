@@ -15,6 +15,7 @@
 */
 
 import {_private} from 'workbox-core';
+import {logger} from 'workbox-core/_private.mjs';
 import core from 'workbox-core';
 
 import CacheTimestampsModel from './models/CacheTimestampsModel.mjs';
@@ -99,11 +100,11 @@ class CacheExpirationManager {
 
     if (process.env.NODE_ENV !== 'production') {
       // TODO break apart entries deleted due to expiration vs size restraints
-      _private.logger.groupCollapsed(
+      logger.groupCollapsed(
         `Expired ${allUrls.length} entries have been removed from the cache.`);
-      _private.logger.debug(`Cache name:`, this._cacheName);
-      _private.logger.debug(`URLS:`, allUrls);
-      _private.logger.groupEnd();
+      logger.debug(`Cache name:`, this._cacheName);
+      logger.debug(`URLS:`, allUrls);
+      logger.groupEnd();
     }
 
     return allUrls;
