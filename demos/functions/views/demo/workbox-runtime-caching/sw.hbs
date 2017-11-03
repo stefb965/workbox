@@ -1,14 +1,12 @@
 {{{WORKBOX_SW_IMPORT}}}
 
-// TODO Skip Waiting
-// TODO Clients Claim
+workbox.skipWaiting();
+workbox.clientsClaim();
 
 const EMPTY_CACHE = 'cache-only-empty';
 const POPULATED_CACHE = 'cache-only-populated';
 
 self.addEventListener('install', (event) => {
-  self.skipWaiting();
-
   event.waitUntil(
     caches.open(POPULATED_CACHE)
     .then((cache) => {
@@ -19,7 +17,6 @@ self.addEventListener('install', (event) => {
     })
   );
 });
-self.addEventListener('activate', () => self.clients.claim());
 
 self.addEventListener('fetch', (event) => {
   if (event.request.url.includes('/demo/workbox-runtime-caching/cache-only-empty-cache.txt')) {

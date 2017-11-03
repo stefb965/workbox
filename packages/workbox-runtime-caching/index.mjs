@@ -15,8 +15,8 @@
 */
 
 /**
- * There are common caching strategies that most service workers will need
- * and use. This module provides simple implementations of these strategies.
+ * This module provides a set of common caching strategies described in the
+ * [offline cookbook]{@link https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/}.
  *
  * @module workbox-runtime-caching
  */

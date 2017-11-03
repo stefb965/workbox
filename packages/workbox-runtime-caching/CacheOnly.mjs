@@ -50,9 +50,9 @@ class CacheOnly {
   }
 
   /**
-   * This method will perform a request strategy and follows an API that
-   * will work with the
-   * [Workbox Router]{@link module:workbox-routing.Router}.
+   * This method will perform the cache only request strategy and
+   * implements the
+   * [handlerCallback API]{@link module:workbox-routing.Route~handlerCallback}.
    *
    * @param {Object} input
    * @param {FetchEvent} input.event The fetch event to run this strategy

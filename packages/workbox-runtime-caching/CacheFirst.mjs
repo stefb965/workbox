@@ -27,9 +27,11 @@ import './_version.mjs';
  * An implementation of a [cache-first]{@link https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#cache-falling-back-to-network}
  * request strategy.
  *
- * A cache first strategy is useful for assets that have beeng revisioned,
- * such as URLs like `/styles/example.a8f5f1.css`, since they
- * can be cached for long periods of time.
+ * A cache first strategy is useful for assets that have been revisioned since
+ * they can be cached for long periods of time,
+ *
+ * For example, `/styles/example.a8f5f1.css` has the revision `a8f5f1` in
+ * it's URL.
  *
  * @memberof module:workbox-runtime-caching
  */
@@ -50,9 +52,9 @@ class CacheFirst {
   }
 
   /**
-   * This method will perform a request strategy and follows an API that
-   * will work with the
-   * [Workbox Router]{@link module:workbox-routing.Router}.
+   * This method will perform the cache first request strategy and
+   * implements the
+   * [handlerCallback API]{@link module:workbox-routing.Route~handlerCallback}.
    *
    * @param {Object} input
    * @param {FetchEvent} input.event The fetch event to run this strategy
