@@ -29,5 +29,8 @@
   "browser": "build/browser/workbox-runtime-caching.prod.js",
   "dependencies": {
     "workbox-core": "^3.0.0-alpha.18"
+  },
+  "devDependencies": {
+    "workbox-cache-expiration": "^3.0.0-alpha.18"
   }
 }
